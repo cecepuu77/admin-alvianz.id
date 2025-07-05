@@ -1,0 +1,276 @@
+/* Font & Reset */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  background: #0d0d0d;
+  color: #f5f5f5;
+}
+
+.hidden {
+  display: none;
+}
+
+a {
+  color: #00bfff;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Login Page */
+.login-container {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle, #0d0d0d, #000);
+}
+
+.login-box {
+  background: #111;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #00bfff;
+  width: 320px;
+  text-align: center;
+  transition: transform 1s ease, opacity 1s ease;
+}
+
+.fade-out {
+  animation: fadeOutZoom 1s ease forwards;
+}
+
+@keyframes fadeOutZoom {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.2); }
+}
+
+.fade-in {
+  animation: fadeInSlide 1s ease forwards;
+}
+
+@keyframes fadeInSlide {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.login-box input {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  background: #222;
+  border: 1px solid #444;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 10px;
+  background: #00bfff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.login-box button:hover {
+  background: #0099cc;
+  box-shadow: 0 0 10px #00bfff;
+}
+
+.login-box .error-msg {
+  color: #ff5252;
+  font-size: 0.9em;
+}
+
+.logo-big {
+  width: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.pirate-title {
+  font-family: 'Pirata One', cursive;
+  color: #ffd700;
+  margin-bottom: 20px;
+}
+
+/* Dashboard Layout */
+.dashboard {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background: #000;
+  color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  box-shadow: 2px 0 10px #00bfff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebar nav {
+  width: 100%;
+}
+
+.sidebar button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  background: none;
+  border: none;
+  color: #fff;
+  text-align: left;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.sidebar button:hover {
+  background: #111;
+  box-shadow: inset 2px 0 0 #00bfff;
+}
+
+.logo-small {
+  width: 60px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background: #0d0d0d;
+  box-sizing: border-box;
+}
+
+/* Tab Content */
+.tab-content {
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+.tab-content.hidden {
+  display: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Horizontal Layout */
+.horizontal-layout {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.panel-box {
+  min-width: 280px;
+  background: #111;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #00bfff;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+/* Form & Input */
+form input,
+form textarea,
+form select,
+form button {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  box-sizing: border-box;
+  background: #111;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 4px;
+}
+
+form button {
+  background: #00bfff;
+  color: white;
+  border: none;
+}
+
+form button:hover {
+  background: #0099cc;
+  box-shadow: 0 0 10px #00bfff;
+}
+
+/* Tabel */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background: #1a1a1a;
+  color: #fff;
+}
+
+table th,
+table td {
+  border: 1px solid #333;
+  padding: 8px;
+  text-align: left;
+}
+
+table th {
+  background: #222;
+}
+
+/* Log Container */
+#logContainer ul {
+  list-style: none;
+  padding: 0;
+}
+
+#logContainer li {
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #1c1c1c;
+  border-left: 4px solid #00bfff;
+  border-radius: 4px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dashboard {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    justify-content: space-around;
+  }
+
+  .sidebar button {
+    flex: 1;
+    text-align: center;
+    font-size: 0.9em;
+  }
+
+  .main-content {
+    padding: 10px;
+  }
+
+  .panel-box {
+    min-width: 90%;
+  }
+
+  table th, table td {
+    font-size: 0.85em;
+  }
+}

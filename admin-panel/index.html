@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alvianz Admin Panel - Galaxy Command Center</title>
+    <link rel="stylesheet" href="admin-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="https://files.catbox.moe/b7p41k.jpg" type="image/x-icon">
+</head>
+<body>
+    <!-- Galaxy Background -->
+    <div class="galaxy-bg">
+        <div class="stars"></div>
+        <div class="stars2"></div>
+        <div class="stars3"></div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="galaxy-loader">
+            <div class="planet"></div>
+            <div class="orbit orbit1">
+                <div class="satellite"></div>
+            </div>
+            <div class="orbit orbit2">
+                <div class="satellite"></div>
+            </div>
+            <div class="orbit orbit3">
+                <div class="satellite"></div>
+            </div>
+        </div>
+        <h2 class="loading-text">ALVIANZ COMMAND CENTER</h2>
+        <p class="loading-subtitle">Galaxy Admin Panel</p>
+        <div class="scrolling-galaxy-text">
+            <span>🌌 MENGELOLA GALAKSI DIGITAL ALVIANZ 🌌 KONTROL PENUH ATAS SISTEM 🌌 TEKNOLOGI MASA DEPAN 🌌</span>
+        </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="login-page">
+        <div class="login-container">
+            <div class="login-header">
+                <img src="https://files.catbox.moe/b7p41k.jpg" alt="Alvianz Logo" class="logo">
+                <h1 class="brand-name">ALVIANZ</h1>
+                <p class="brand-subtitle">Galaxy Command Center</p>
+                <div class="access-level">ADMIN ACCESS ONLY</div>
+            </div>
+
+            <form class="login-form" id="adminLoginForm">
+                <div class="input-group">
+                    <i class="fas fa-user-shield input-icon"></i>
+                    <input type="email" id="adminEmail" placeholder="Admin Email" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-key input-icon"></i>
+                    <input type="password" id="adminPassword" placeholder="Admin Password" required>
+                </div>
+                <button type="submit" class="login-btn">
+                    <span>ACCESS GALAXY CONTROL</span>
+                    <i class="fas fa-rocket"></i>
+                </button>
+            </form>
+
+            <div class="security-notice">
+                <i class="fas fa-shield-alt"></i>
+                <span>Secure Galaxy Connection Established</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="admin-dashboard" style="display: none;">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <img src="https://files.catbox.moe/b7p41k.jpg" alt="Alvianz Logo" class="header-logo">
+                    <div class="header-text">
+                        <h1>ALVIANZ GALAXY</h1>
+                        <p>Command Center</p>
+                    </div>
+                </div>
+                
+                <div class="header-center">
+                    <div class="admin-coins">
+                        <i class="fas fa-coins"></i>
+                        <span id="adminCoins">99999999</span>
+                        <span>ADMIN COINS</span>
+                    </div>
+                </div>
+                
+                <div class="header-right">
+                    <div class="admin-info">
+                        <span>Admin: <strong>AlvianzLX</strong></span>
+                        <button class="logout-btn" id="adminLogout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            LOGOUT
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="admin-nav">
+            <div class="nav-container">
+                <button class="nav-btn active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>DASHBOARD</span>
+                </button>
+                <button class="nav-btn" data-section="users">
+                    <i class="fas fa-users"></i>
+                    <span>USER MANAGEMENT</span>
+                </button>
+                <button class="nav-btn" data-section="deposits">
+                    <i class="fas fa-wallet"></i>
+                    <span>DEPOSIT CONTROL</span>
+                </button>
+                <button class="nav-btn" data-section="purchases">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>SALES MONITOR</span>
+                </button>
+                <button class="nav-btn" data-section="analytics">
+                    <i class="fas fa-chart-line"></i>
+                    <span>ANALYTICS</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Content Sections -->
+        <main class="admin-content">
+            <!-- Dashboard Section -->
+            <section id="dashboardSection" class="content-section active">
+                <div class="section-header">
+                    <h2>Galaxy Control Dashboard</h2>
+                    <p>Monitor and control your digital empire</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="totalUsers">0</h3>
+                            <p>Total Users</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="totalCoins">0</h3>
+                            <p>Total Coins Distributed</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="totalSales">0</h3>
+                            <p>Total Sales</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-trending-up"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="totalRevenue">0</h3>
+                            <p>Total Revenue</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-activity">
+                    <h3>Recent Galaxy Activity</h3>
+                    <div class="activity-list" id="recentActivity">
+                        <!-- Activity items will be populated here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Users Section -->
+            <section id="usersSection" class="content-section">
+                <div class="section-header">
+                    <h2>User Management Console</h2>
+                    <div class="section-actions">
+                        <button class="action-btn" id="refreshUsers">
+                            <i class="fas fa-sync"></i>
+                            REFRESH
+                        </button>
+                    </div>
+                </div>
+
+                <div class="users-table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Full Name</th>
+                                <th>Coins</th>
+                                <th>Login Streak</th>
+                                <th>Total Logins</th>
+                                <th>Last Login</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <!-- User data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Deposits Section -->
+            <section id="depositsSection" class="content-section">
+                <div class="section-header">
+                    <h2>Deposit Control Center</h2>
+                    <div class="section-actions">
+                        <button class="action-btn" id="refreshDeposits">
+                            <i class="fas fa-sync"></i>
+                            REFRESH
+                        </button>
+                    </div>
+                </div>
+
+                <div class="deposits-table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Full Name</th>
+                                <th>Amount</th>
+                                <th>Coins</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="depositsTableBody">
+                            <!-- Deposit data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Purchases Section -->
+            <section id="purchasesSection" class="content-section">
+                <div class="section-header">
+                    <h2>Sales Monitoring Station</h2>
+                    <div class="section-actions">
+                        <button class="action-btn" id="refreshPurchases">
+                            <i class="fas fa-sync"></i>
+                            REFRESH
+                        </button>
+                    </div>
+                </div>
+
+                <div class="purchases-table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Domain</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="purchasesTableBody">
+                            <!-- Purchase data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section id="analyticsSection" class="content-section">
+                <div class="section-header">
+                    <h2>Galaxy Analytics Center</h2>
+                    <p>Advanced insights into your digital empire</p>
+                </div>
+
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <h3>Most Popular Products</h3>
+                        <div class="product-stats" id="productStats">
+                            <!-- Product statistics will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <div class="analytics-card">
+                        <h3>User Growth</h3>
+                        <div class="growth-stats" id="growthStats">
+                            <!-- Growth statistics will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <div class="analytics-card">
+                        <h3>Revenue Analysis</h3>
+                        <div class="revenue-stats" id="revenueStats">
+                            <!-- Revenue statistics will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Inject Coins Modal -->
+    <div id="injectCoinsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Inject Coins to User</h2>
+            <div class="inject-form">
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" id="injectUsername" readonly>
+                </div>
+                <div class="input-group">
+                    <label>Amount of Coins</label>
+                    <input type="number" id="injectAmount" placeholder="Enter amount" min="1">
+                </div>
+                <div class="inject-actions">
+                    <button class="action-btn primary" id="confirmInject">
+                        <i class="fas fa-coins"></i>
+                        INJECT COINS
+                    </button>
+                    <button class="action-btn secondary" onclick="closeModal()">
+                        <i class="fas fa-times"></i>
+                        CANCEL
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="admin-footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Alvianz Galaxy Command Center</p>
+            <p>Powered by <strong>AlvianzLX</strong> Technology</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="admin-script.js"></script>
+</body>
+</html>

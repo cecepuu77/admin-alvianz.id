@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alvianz Store - Premium Digital Services</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="https://files.catbox.moe/b7p41k.jpg" type="image/x-icon">
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+    
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loader">
+            <div class="loader-ring"></div>
+            <div class="loader-ring"></div>
+            <div class="loader-ring"></div>
+        </div>
+        <h2 class="loading-text">ALVIANZ STORE</h2>
+        <p class="loading-subtitle">Premium Digital Services</p>
+    </div>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="login-page">
+        <div class="login-container">
+            <div class="login-header">
+                <img src="https://files.catbox.moe/b7p41k.jpg" alt="Alvianz Logo" class="logo">
+                <h1 class="brand-name">ALVIANZ</h1>
+                <p class="brand-subtitle">Premium Digital Store</p>
+            </div>
+            
+            <div class="promo-text">
+                <div class="scrolling-text">
+                    <span>🚀 DAPATKAN TEMPLATE PREMIUM BERKUALITAS TINGGI 🚀 BONUS LOGIN 7 HARI BERTURUT = 30 COIN GRATIS 🚀 DEPOSIT MUDAH VIA QRIS & DANA 🚀</span>
+                </div>
+            </div>
+
+            <form class="login-form" id="loginForm">
+                <div class="input-group">
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="text" id="username" placeholder="Masukkan Username" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" id="password" placeholder="Masukkan Password" required>
+                </div>
+                <button type="submit" class="login-btn">
+                    <span>MASUK KE STORE</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <div class="register-section">
+                <p>Belum punya akun? <span id="showRegister" class="register-link">Daftar Sekarang</span></p>
+            </div>
+
+            <div class="contact-whatsapp">
+                <a href="https://wa.me/6283142313394?text=Halo%20Admin%20Alvianz,%20saya%20butuh%20bantuan" target="_blank" class="whatsapp-btn">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>Hubungi Admin</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Daftar Akun Baru</h2>
+            <form id="registerForm">
+                <div class="input-group">
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="text" id="regUsername" placeholder="Username" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" id="regPassword" placeholder="Password" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-user-circle input-icon"></i>
+                    <input type="text" id="regFullName" placeholder="Nama Lengkap" required>
+                </div>
+                <button type="submit" class="login-btn">
+                    <span>DAFTAR SEKARANG</span>
+                    <i class="fas fa-user-plus"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="dashboard" style="display: none;">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <img src="https://files.catbox.moe/b7p41k.jpg" alt="Alvianz Logo" class="header-logo">
+                    <div class="header-text">
+                        <h1>ALVIANZ STORE</h1>
+                        <p>Premium Digital Services</p>
+                    </div>
+                </div>
+                
+                <div class="header-right">
+                    <div class="coin-display">
+                        <i class="fas fa-coins coin-icon"></i>
+                        <span id="userCoins">0</span>
+                        <span class="coin-text">COINS</span>
+                    </div>
+                    <div class="user-menu">
+                        <img id="userAvatar" src="https://via.placeholder.com/40" alt="Profile" class="user-avatar">
+                        <span id="userName">User</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-menu">
+            <div class="nav-container">
+                <button class="nav-btn active" data-page="beranda">
+                    <i class="fas fa-home"></i>
+                    <span>BERANDA</span>
+                </button>
+                <button class="nav-btn" data-page="deposit">
+                    <i class="fas fa-wallet"></i>
+                    <span>DEPOSIT</span>
+                </button>
+                <button class="nav-btn" data-page="akun">
+                    <i class="fas fa-user-circle"></i>
+                    <span>AKUN SAYA</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Content Pages -->
+        <main class="main-content">
+            <!-- Beranda Page -->
+            <div id="berandaPage" class="page active">
+                <div class="welcome-banner">
+                    <h2>Selamat Datang di Alvianz Store</h2>
+                    <p>Template Premium Berkualitas Tinggi untuk Kebutuhan Digital Anda</p>
+                </div>
+
+                <div class="bonus-notification" id="bonusNotification" style="display: none;">
+                    <div class="bonus-content">
+                        <i class="fas fa-gift"></i>
+                        <span>Bonus Login Hari Ke-<span id="loginDay">1</span>! Anda mendapat 30 Coins!</span>
+                    </div>
+                </div>
+
+                <div class="products-section">
+                    <h3>Produk Unggulan</h3>
+                    <div class="products-grid">
+                        <div class="product-card" data-product="NEXUS" data-price="2400" data-image="https://files.catbox.moe/uws3hf.jpg">
+                            <div class="product-image">
+                                <img src="https://files.catbox.moe/uws3hf.jpg" alt="Template Nexus">
+                                <div class="product-overlay">
+                                    <button class="order-btn">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        PESAN SEKARANG
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h4>TEMPLATE NEXUS</h4>
+                                <p class="product-description">Template premium untuk website modern dan elegan</p>
+                                <div class="product-price">
+                                    <span class="price">2400</span>
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card" data-product="MPO" data-price="4300" data-image="https://img1.pixhost.to/images/6985/618710396_imgtmp.jpg">
+                            <div class="product-image">
+                                <img src="https://img1.pixhost.to/images/6985/618710396_imgtmp.jpg" alt="Template MPO">
+                                <div class="product-overlay">
+                                    <button class="order-btn">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        PESAN SEKARANG
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h4>TEMPLATE MPO</h4>
+                                <p class="product-description">Template profesional untuk bisnis online</p>
+                                <div class="product-price">
+                                    <span class="price">4300</span>
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card" data-product="ID" data-price="2700" data-image="https://img1.pixhost.to/images/6985/618710873_imgtmp.jpg">
+                            <div class="product-image">
+                                <img src="https://img1.pixhost.to/images/6985/618710873_imgtmp.jpg" alt="Template ID">
+                                <div class="product-overlay">
+                                    <button class="order-btn">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        PESAN SEKARANG
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h4>TEMPLATE ID</h4>
+                                <p class="product-description">Template berkualitas untuk identitas digital</p>
+                                <div class="product-price">
+                                    <span class="price">2700</span>
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card" data-product="UG" data-price="3500" data-image="https://files.catbox.moe/8kfqt1.jpg">
+                            <div class="product-image">
+                                <img src="https://files.catbox.moe/8kfqt1.jpg" alt="Template UG">
+                                <div class="product-overlay">
+                                    <button class="order-btn">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        PESAN SEKARANG
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h4>TEMPLATE UG</h4>
+                                <p class="product-description">Template ultimate untuk kebutuhan premium</p>
+                                <div class="product-price">
+                                    <span class="price">3500</span>
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deposit Page -->
+            <div id="depositPage" class="page">
+                <div class="deposit-container">
+                    <h2>Top Up Coins</h2>
+                    <p class="deposit-info">1 Coin = Rp 1.000 | Minimum deposit Rp 10.000</p>
+                    
+                    <div class="deposit-methods">
+                        <div class="deposit-method active" data-method="qris">
+                            <i class="fas fa-qrcode"></i>
+                            <span>QRIS</span>
+                        </div>
+                        <div class="deposit-method" data-method="dana">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>DANA</span>
+                        </div>
+                    </div>
+
+                    <div class="deposit-content">
+                        <div id="qrisMethod" class="payment-method active">
+                            <img src="https://i.imghippo.com/files/YqEh9143w.png" alt="QRIS Code" class="qris-image">
+                            <p>Scan QRIS di atas untuk melakukan pembayaran</p>
+                        </div>
+                        
+                        <div id="danaMethod" class="payment-method">
+                            <div class="dana-info">
+                                <i class="fas fa-mobile-alt dana-icon"></i>
+                                <div>
+                                    <p>Nomor DANA</p>
+                                    <h3>083142313394</h3>
+                                    <p>a.n. AlvianzLX</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="deposit-form">
+                        <div class="input-group">
+                            <label>Jumlah Deposit (Rp)</label>
+                            <input type="number" id="depositAmount" placeholder="Minimal 10.000" min="10000">
+                        </div>
+                        <div class="coin-preview">
+                            <span>Coins yang didapat: </span>
+                            <span id="coinPreview">0</span>
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <button id="confirmDeposit" class="deposit-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            KONFIRMASI KE ADMIN
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Akun Page -->
+            <div id="akunPage" class="page">
+                <div class="account-container">
+                    <div class="profile-section">
+                        <div class="profile-header">
+                            <div class="profile-image-container">
+                                <img id="profileImage" src="https://via.placeholder.com/100" alt="Profile">
+                                <input type="file" id="profileImageInput" accept="image/*" style="display: none;">
+                                <button class="change-photo-btn" onclick="document.getElementById('profileImageInput').click()">
+                                    <i class="fas fa-camera"></i>
+                                </button>
+                            </div>
+                            <div class="profile-info">
+                                <h3 id="profileName">User</h3>
+                                <div class="coin-balance">
+                                    <i class="fas fa-coins"></i>
+                                    <span id="profileCoins">0</span>
+                                    <span>COINS</span>
+                                </div>
+                                <div class="login-streak">
+                                    <i class="fas fa-fire"></i>
+                                    <span>Login Streak: <span id="loginStreak">1</span> hari</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="account-tabs">
+                        <button class="tab-btn active" data-tab="riwayat-pembelian">
+                            <i class="fas fa-shopping-bag"></i>
+                            Riwayat Pembelian
+                        </button>
+                        <button class="tab-btn" data-tab="riwayat-deposit">
+                            <i class="fas fa-history"></i>
+                            Riwayat Deposit
+                        </button>
+                    </div>
+
+                    <div class="tab-content">
+                        <div id="riwayat-pembelian" class="tab-pane active">
+                            <div class="history-list" id="purchaseHistory">
+                                <div class="empty-state">
+                                    <i class="fas fa-shopping-bag"></i>
+                                    <p>Belum ada pembelian</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="riwayat-deposit" class="tab-pane">
+                            <div class="history-list" id="depositHistory">
+                                <div class="empty-state">
+                                    <i class="fas fa-wallet"></i>
+                                    <p>Belum ada deposit</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        LOGOUT
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Order Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content order-modal">
+            <div class="order-loading" id="orderLoading">
+                <div class="loading-animation">
+                    <div class="loading-spinner"></div>
+                    <h3>Memproses Pesanan...</h3>
+                    <p>Mohon tunggu sebentar</p>
+                </div>
+            </div>
+            
+            <div class="order-form" id="orderForm" style="display: none;">
+                <span class="close-modal">&times;</span>
+                <h2>Form Pemesanan</h2>
+                <p class="order-product-name">Template: <span id="orderProductName"></span></p>
+                <p class="order-price">Harga: <span id="orderPrice"></span> Coins</p>
+                
+                <form id="purchaseForm">
+                    <div class="input-group">
+                        <label>Nama Rekening</label>
+                        <input type="text" id="accountName" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Nomor Rekening</label>
+                        <input type="text" id="accountNumber" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Request Domain</label>
+                        <input type="text" id="requestDomain" placeholder="contoh: tokosaya.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Nama Situs</label>
+                        <input type="text" id="siteName" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Username Admin Panel</label>
+                        <input type="text" id="adminUsername" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Password Admin Panel</label>
+                        <input type="password" id="adminPassword" required>
+                    </div>
+                    <button type="submit" class="order-submit-btn">
+                        <i class="fab fa-whatsapp"></i>
+                        KIRIM PESANAN VIA WHATSAPP
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Alvianz Store - Premium Digital Services</p>
+            <p>Owner: <strong>AlvianzLX</strong></p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎰 Royal Casino Store - Premium Digital Shop</title>
+    <link rel="stylesheet" href="store.css">
+    <link rel="icon" href="https://img1.pixhost.to/images/6988/618738275_reyytourl.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Pirata+One&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="casino-loader">
+            <div class="dice-container">
+                <div class="dice">
+                    <div class="face front">⚀</div>
+                    <div class="face back">⚁</div>
+                    <div class="face right">⚂</div>
+                    <div class="face left">⚃</div>
+                    <div class="face top">⚄</div>
+                    <div class="face bottom">⚅</div>
+                </div>
+            </div>
+            <h2 class="loading-text">🎰 Loading Royal Casino...</h2>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="https://img1.pixhost.to/images/6988/618738275_reyytourl.jpg" alt="Logo" class="nav-logo">
+                <span class="brand-text">Royal Casino Store</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link active">🏠 Home</a>
+                <a href="#products" class="nav-link">🎮 Products</a>
+                <a href="#about" class="nav-link">ℹ️ About</a>
+                <a href="#contact" class="nav-link">📞 Contact</a>
+                <div class="user-actions">
+                    <button id="loginBtn" class="btn-secondary">🔑 Login</button>
+                    <div id="userInfo" class="user-info hidden">
+                        <span id="userCoins" class="coins-display">💰 0</span>
+                        <span id="username" class="username"></span>
+                        <button id="logoutBtn" class="btn-danger">🚪 Logout</button>
+                    </div>
+                </div>
+            </div>
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    🎰 <span class="gold-text">Royal Casino</span> Store
+                </h1>
+                <p class="hero-subtitle">Premium Digital Products & Gaming Experience</p>
+                <div class="hero-features">
+                    <div class="feature">
+                        <i class="fas fa-crown"></i>
+                        <span>Premium Quality</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-bolt"></i>
+                        <span>Instant Delivery</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Secure Payment</span>
+                    </div>
+                </div>
+                <button class="btn-primary hero-cta" onclick="scrollToProducts()">
+                    🛒 Explore Products
+                </button>
+            </div>
+            <div class="hero-visual">
+                <div class="casino-cards">
+                    <div class="card card-1">🂡</div>
+                    <div class="card card-2">🂱</div>
+                    <div class="card card-3">🃁</div>
+                    <div class="card card-4">🃑</div>
+                </div>
+                <div class="slot-machine">
+                    <div class="slot-symbols">
+                        <div class="symbol">🍒</div>
+                        <div class="symbol">🍋</div>
+                        <div class="symbol">🔔</div>
+                        <div class="symbol">💎</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-particles"></div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">🎮 Premium Products</h2>
+                <p class="section-subtitle">Discover our exclusive digital collection</p>
+            </div>
+            
+            <div class="products-filter">
+                <button class="filter-btn active" data-filter="all">All Products</button>
+                <button class="filter-btn" data-filter="games">🎮 Games</button>
+                <button class="filter-btn" data-filter="accounts">👤 Accounts</button>
+                <button class="filter-btn" data-filter="coins">💰 Coins</button>
+                <button class="filter-btn" data-filter="premium">👑 Premium</button>
+            </div>
+
+            <div id="productsGrid" class="products-grid">
+                <!-- Products will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">🏆 About Royal Casino Store</h2>
+                    <p>Welcome to the most prestigious digital marketplace where luxury meets gaming. We provide premium digital products with the excitement of a royal casino experience.</p>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <h3>1000+</h3>
+                            <p>Happy Customers</p>
+                        </div>
+                        <div class="stat">
+                            <h3>500+</h3>
+                            <p>Premium Products</p>
+                        </div>
+                        <div class="stat">
+                            <h3>24/7</h3>
+                            <p>Customer Support</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="casino-wheel">
+                        <div class="wheel-center">🎰</div>
+                        <div class="wheel-segments">
+                            <div class="segment red">💎</div>
+                            <div class="segment black">♠</div>
+                            <div class="segment red">♥</div>
+                            <div class="segment black">♣</div>
+                            <div class="segment red">♦</div>
+                            <div class="segment black">🎲</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">📞 Contact Us</h2>
+                <p class="section-subtitle">Get in touch with our royal support team</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <h3>WhatsApp</h3>
+                            <p>+62 123 456 7890</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-telegram"></i>
+                        <div>
+                            <h3>Telegram</h3>
+                            <p>@RoyalCasinoStore</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email</h3>
+                            <p>support@royalcasino.store</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <textarea placeholder="Your Message" rows="5" required></textarea>
+                        <button type="submit" class="btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <h2>🔑 Login to Royal Casino</h2>
+            </div>
+            <form id="loginForm">
+                <input type="text" id="loginUsername" placeholder="Username" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <button type="submit" class="btn-primary">Login</button>
+                <p class="modal-text">Don't have an account? <a href="#" id="showRegister">Register here</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <h2>👑 Join Royal Casino</h2>
+            </div>
+            <form id="registerForm">
+                <input type="text" id="regUsername" placeholder="Username" required>
+                <input type="email" id="regEmail" placeholder="Email" required>
+                <input type="password" id="regPassword" placeholder="Password" required>
+                <input type="password" id="regConfirmPassword" placeholder="Confirm Password" required>
+                <button type="submit" class="btn-primary">Register</button>
+                <p class="modal-text">Already have an account? <a href="#" id="showLogin">Login here</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content product-modal">
+            <span class="close">&times;</span>
+            <div id="productModalContent">
+                <!-- Product details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <img src="https://img1.pixhost.to/images/6988/618738275_reyytourl.jpg" alt="Logo" class="footer-logo">
+                        <h3>Royal Casino Store</h3>
+                    </div>
+                    <p>Premium digital marketplace with royal casino experience.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="#">Games</a></li>
+                        <li><a href="#">Accounts</a></li>
+                        <li><a href="#">Coins</a></li>
+                        <li><a href="#">Premium</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Royal Casino Store. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="store.js"></script>
+</body>
+</html>

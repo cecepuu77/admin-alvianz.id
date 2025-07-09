@@ -40,6 +40,7 @@ window.loginAdmin = function () {
         loadHistory();
         loadLog();
         loadDeposits();
+        initializeMessageSystem();
       }, 1000);
     })
     .catch((err) => {
@@ -344,5 +345,297 @@ window.accDeposit = function (id, username, amount) {
     logAktivitas("ACC Deposit", `${username} +${amount}`);
     alert(`✅ Deposit ${amount} coin berhasil di-ACC untuk ${username}`);
     loadStats();
+  });
+};
+
+// ========== SISTEM PESAN ==========
+
+// Initialize message system
+window.initializeMessageSystem = function() {
+  setupCharCounters();
+  loadSentMessages();
+};
+
+// Setup character counters for textareas
+function setupCharCounters() {
+  const messageContent = document.getElementById("messageContent");
+  const charCount = document.getElementById("charCount");
+  const broadcastContent = document.getElementById("broadcastContent");
+  const broadcastCharCount = document.getElementById("broadcastCharCount");
+
+  if (messageContent && charCount) {
+    messageContent.addEventListener("input", function() {
+      const count = this.value.length;
+      charCount.textContent = count;
+      charCount.style.color = count > 1800 ? "#e74c3c" : "#666";
+    });
+  }
+
+  if (broadcastContent && broadcastCharCount) {
+    broadcastContent.addEventListener("input", function() {
+      const count = this.value.length;
+      broadcastCharCount.textContent = count;
+      broadcastCharCount.style.color = count > 1800 ? "#e74c3c" : "#666";
+    });
+  }
+}
+
+// Send message to specific user
+window.sendMessage = function(event) {
+  event.preventDefault();
+  
+  const recipient = document.getElementById("messageRecipient").value.trim();
+  const subject = document.getElementById("messageSubject").value.trim();
+  const content = document.getElementById("messageContent").value.trim();
+  const status = document.getElementById("messageStatus");
+
+  if (!recipient || !subject || !content) {
+    status.textContent = "❌ Semua field harus diisi.";
+    status.style.color = "#e74c3c";
+    return;
+  }
+
+  if (content.length > 2000) {
+    status.textContent = "❌ Pesan terlalu panjang. Maksimal 2000 karakter.";
+    status.style.color = "#e74c3c";
+    return;
+  }
+
+  // Check if user exists
+  const userRef = ref(db, `users/${recipient}`);
+  get(userRef).then(snapshot => {
+    if (!snapshot.exists()) {
+      status.textContent = "❌ User tidak ditemukan.";
+      status.style.color = "#e74c3c";
+      return;
+    }
+
+    // Split message if too long (implement chunking for very long messages)
+    const messageChunks = splitMessage(content, 1500); // Split into smaller chunks
+    
+    // Send each chunk
+    const promises = messageChunks.map((chunk, index) => {
+      const messageData = {
+        from: "admin",
+        to: recipient,
+        subject: messageChunks.length > 1 ? `${subject} (${index + 1}/${messageChunks.length})` : subject,
+        content: chunk,
+        timestamp: new Date().toISOString(),
+        read: false,
+        type: "direct"
+      };
+
+      // Save to recipient's inbox
+      const inboxRef = push(ref(db, `users/${recipient}/messages`));
+      return set(inboxRef, messageData);
+    });
+
+    // Save to sent messages
+    const sentMessageData = {
+      to: recipient,
+      subject: subject,
+      content: content,
+      timestamp: new Date().toISOString(),
+      chunks: messageChunks.length,
+      type: "direct"
+    };
+    const sentRef = push(ref(db, "admin/sentMessages"));
+    
+    Promise.all([...promises, set(sentRef, sentMessageData)])
+      .then(() => {
+        status.textContent = `✅ Pesan berhasil dikirim ke ${recipient}`;
+        if (messageChunks.length > 1) {
+          status.textContent += ` dalam ${messageChunks.length} bagian`;
+        }
+        status.style.color = "#27ae60";
+        
+        // Reset form
+        document.getElementById("messageForm").reset();
+        document.getElementById("charCount").textContent = "0";
+        
+        // Log activity
+        logAktivitas("Kirim Pesan", `ke ${recipient}: ${subject}`);
+        
+        // Reload sent messages
+        loadSentMessages();
+      })
+      .catch(error => {
+        status.textContent = "❌ Gagal mengirim pesan: " + error.message;
+        status.style.color = "#e74c3c";
+      });
+  });
+};
+
+// Send broadcast to all users
+window.sendBroadcast = function(event) {
+  event.preventDefault();
+  
+  const subject = document.getElementById("broadcastSubject").value.trim();
+  const content = document.getElementById("broadcastContent").value.trim();
+  const status = document.getElementById("broadcastStatus");
+
+  if (!subject || !content) {
+    status.textContent = "❌ Semua field harus diisi.";
+    status.style.color = "#e74c3c";
+    return;
+  }
+
+  if (content.length > 2000) {
+    status.textContent = "❌ Pesan terlalu panjang. Maksimal 2000 karakter.";
+    status.style.color = "#e74c3c";
+    return;
+  }
+
+  // Get all users
+  const usersRef = ref(db, "users");
+  get(usersRef).then(snapshot => {
+    const users = snapshot.val();
+    if (!users) {
+      status.textContent = "❌ Tidak ada user yang ditemukan.";
+      status.style.color = "#e74c3c";
+      return;
+    }
+
+    const usernames = Object.keys(users);
+    const messageChunks = splitMessage(content, 1500);
+    
+    // Send to all users
+    const promises = [];
+    
+    usernames.forEach(username => {
+      messageChunks.forEach((chunk, index) => {
+        const messageData = {
+          from: "admin",
+          to: username,
+          subject: messageChunks.length > 1 ? `[BROADCAST] ${subject} (${index + 1}/${messageChunks.length})` : `[BROADCAST] ${subject}`,
+          content: chunk,
+          timestamp: new Date().toISOString(),
+          read: false,
+          type: "broadcast"
+        };
+
+        const inboxRef = push(ref(db, `users/${username}/messages`));
+        promises.push(set(inboxRef, messageData));
+      });
+    });
+
+    // Save to sent messages
+    const sentBroadcastData = {
+      to: "ALL_USERS",
+      subject: subject,
+      content: content,
+      timestamp: new Date().toISOString(),
+      recipients: usernames.length,
+      chunks: messageChunks.length,
+      type: "broadcast"
+    };
+    const sentRef = push(ref(db, "admin/sentMessages"));
+    promises.push(set(sentRef, sentBroadcastData));
+
+    Promise.all(promises)
+      .then(() => {
+        status.textContent = `✅ Broadcast berhasil dikirim ke ${usernames.length} user`;
+        if (messageChunks.length > 1) {
+          status.textContent += ` dalam ${messageChunks.length} bagian`;
+        }
+        status.style.color = "#27ae60";
+        
+        // Reset form
+        document.getElementById("broadcastForm").reset();
+        document.getElementById("broadcastCharCount").textContent = "0";
+        
+        // Log activity
+        logAktivitas("Broadcast", `ke ${usernames.length} user: ${subject}`);
+        
+        // Reload sent messages
+        loadSentMessages();
+      })
+      .catch(error => {
+        status.textContent = "❌ Gagal mengirim broadcast: " + error.message;
+        status.style.color = "#e74c3c";
+      });
+  });
+};
+
+// Split long messages into chunks
+function splitMessage(message, maxLength) {
+  if (message.length <= maxLength) {
+    return [message];
+  }
+
+  const chunks = [];
+  let currentPos = 0;
+
+  while (currentPos < message.length) {
+    let chunkEnd = currentPos + maxLength;
+    
+    // If not at the end, try to break at a word boundary
+    if (chunkEnd < message.length) {
+      const lastSpace = message.lastIndexOf(' ', chunkEnd);
+      const lastNewline = message.lastIndexOf('\n', chunkEnd);
+      const breakPoint = Math.max(lastSpace, lastNewline);
+      
+      if (breakPoint > currentPos) {
+        chunkEnd = breakPoint;
+      }
+    }
+    
+    chunks.push(message.substring(currentPos, chunkEnd).trim());
+    currentPos = chunkEnd + 1;
+  }
+
+  return chunks.filter(chunk => chunk.length > 0);
+}
+
+// Load sent messages history
+window.loadSentMessages = function() {
+  const container = document.getElementById("sentMessages");
+  const sentRef = ref(db, "admin/sentMessages");
+
+  onValue(sentRef, (snapshot) => {
+    const messages = snapshot.val();
+    if (!messages) {
+      container.innerHTML = "<p>Belum ada pesan yang dikirim.</p>";
+      return;
+    }
+
+    let html = `
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="background: #f8f9fa;">
+            <th style="padding: 10px; border: 1px solid #ddd;">Penerima</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Subjek</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Tipe</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Waktu</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+    // Sort messages by timestamp (newest first)
+    const sortedMessages = Object.entries(messages).sort((a, b) => 
+      new Date(b[1].timestamp) - new Date(a[1].timestamp)
+    );
+
+    sortedMessages.forEach(([id, msg]) => {
+      const isBroadcast = msg.type === "broadcast";
+      const recipientText = isBroadcast ? `${msg.recipients} users` : msg.to;
+      const typeText = isBroadcast ? "Broadcast" : "Direct";
+      const statusText = msg.chunks > 1 ? `${msg.chunks} bagian` : "1 bagian";
+      
+      html += `
+        <tr>
+          <td style="padding: 8px; border: 1px solid #ddd;">${recipientText}</td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${msg.subject}</td>
+          <td style="padding: 8px; border: 1px solid #ddd;"><span style="background: ${isBroadcast ? '#e74c3c' : '#3498db'}; color: white; padding: 2px 6px; border-radius: 3px; font-size: 12px;">${typeText}</span></td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${new Date(msg.timestamp).toLocaleString()}</td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${statusText}</td>
+        </tr>
+      `;
+    });
+
+    html += "</tbody></table>";
+    container.innerHTML = html;
   });
 };
